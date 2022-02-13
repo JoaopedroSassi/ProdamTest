@@ -5,7 +5,6 @@ using ProdamTest.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq;
 
 namespace ProdamTest.Controllers
 {
@@ -35,7 +34,7 @@ namespace ProdamTest.Controllers
 
         [HttpGet]
         [Route("{code}/{isPf:bool}")]
-        public async Task<ActionResult<Provider>> GetByCPF(string code, bool isPf)
+        public async Task<ActionResult<Provider>> GetByCpf(string code, bool isPf)
         {
             if (isPf)
                 return Ok(await _context.Providers.Include(x => x.Company).AsNoTracking().FirstOrDefaultAsync(x => x.Cpf == code));
@@ -84,7 +83,7 @@ namespace ProdamTest.Controllers
 
             try
             {
-                _context.Entry<Provider>(model).State = EntityState.Modified;
+                _context.Entry(model).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
                 return Ok(model);
             }
